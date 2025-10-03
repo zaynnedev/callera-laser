@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Produto • Callera Laser</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-32.png?v=3">
+</head>
+<body>
+  <div id="app-header" data-partial="partials/header.html"></div>
+  <div id="app-menu"   data-partial="partials/menu.html"></div>
+
+  <main class="container pv-wrap">
+    <article id="prodView" class="pv-grid" aria-live="polite"><!-- via JS --></article>
+
+    <!-- SOMENTE detalhes do procedimento (sem abas) -->
+    <section class="proc" aria-labelledby="procTitle">
+      <div id="procTitle" class="proc-head">Detalhes do procedimento</div>
+      <div class="proc-grid">
+        <div class="proc-card">
+          <img src="assets/images/pelo.png" alt="" width="110" height="110" loading="lazy">
+          <p>É <strong>imprescindível</strong> que os pelos estejam aparentes para realizar a sessão.</p>
+        </div>
+        <div class="proc-card">
+          <img src="assets/images/lamina.png" alt="" width="110" height="110" loading="lazy">
+          <p>Compareça com as áreas a serem depiladas <strong>higienizadas</strong> para maior conforto e segurança.</p>
+        </div>
+        <div class="proc-card">
+          <img src="assets/images/calendario.png" alt="" width="110" height="110" loading="lazy">
+          <p>Intervalo médio entre sessões: <strong>45 dias</strong>. Use apenas lâmina entre as sessões.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><p class="copyright">© 2025 Callera Laser.</p></div></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/menu-cats.js"></script>
+  <script src="js/product.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/cart-badge.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+</html>

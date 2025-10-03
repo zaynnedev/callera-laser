@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Callera Laser</title>
+  <meta name="description" content="Callera Laser - Depilação a laser e estética.">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-32.png?v=3">
+</head>
+<body>
+  <!-- Parciais -->
+  <div id="app-header" data-partial="partials/header.html"></div>
+  <div id="app-menu" data-partial="partials/menu.html"></div>
+
+  <main>
+    <section class="hero container" aria-label="Destaque">
+      <img class="hero-banner" src="assets/images/banner.png" alt="Promoções e destaques Callera Laser" width="980" height="343" loading="eager">
+    </section>
+
+    <section class="container desired" aria-labelledby="ttl-desejados">
+      <h2 id="ttl-desejados" class="tt-title">MAIS DESEJADOS</h2>
+      <div id="featuredCards" class="cards" role="list"></div>
+      <p id="featuredEmpty" class="muted" hidden>Nenhum destaque cadastrado ainda.</p>
+    </section>
+
+    <section class="container branch" aria-labelledby="ttl-branch">
+      <h2 id="ttl-branch" class="tt-title">CONHEÇA NOSSA UNIDADE</h2>
+      <figure class="map-card">
+        <img src="assets/images/local.png" alt="Foto da unidade Callera Laser" width="914" height="402" loading="lazy">
+        <figcaption class="sr-only">Endereço da unidade e ação para conferir no mapa</figcaption>
+        <a class="btn btn-solid map-cta" href="https://www.google.com/maps/search/?api=1&query=Callera%20Clinic%20Rua%20Guapimirim%2C%2026%20Cidade%20Nova%20Manaus%20AM" target="_blank" rel="noopener">Confira aqui</a>
+      </figure>
+      <p class="address">Rua Guapimirim, 26 - Cidade Nova<br>Manaus- AM</p>
+    </section>
+
+    <section class="container contact" aria-labelledby="ttl-contato">
+      <h2 id="ttl-contato" class="tt-title">FALE COM A GENTE</h2>
+      <div class="social-ctas">
+        <a class="pill gold" href="https://wa.me/5592993242367" target="_blank" rel="noopener">Whatsapp</a>
+        <a class="pill gold" href="https://instagram.com/calleraclinic" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer via parcial -->
+  <div data-partial="partials/footer.html"></div>
+
+  <!-- Lib + config -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
+  <script src="js/layout.js"></script>
+  <script src="js/menu-cats.js"></script>
+
+  <!-- Home -->
+  <script src="js/search.js"></script>
+  <script src="js/cart-badge.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/cards.js"></script> <!-- só na home -->
+</body>
+</html>
