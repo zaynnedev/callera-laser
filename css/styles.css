@@ -592,18 +592,21 @@ main.admin .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
   }
   .table td.actions-col .btn-more{ grid-column:1/-1; justify-self:center } /* fica embaixo */
 }
-main.admin{ width:min(100%,var(--container)); overflow-x:hidden }
+
+-main.admin{ width:min(100%,var(--container)); overflow-x:hidden }
 
 /* ========= Header geral até 1200px: logo à esq, ícones à dir, busca embaixo ========= */
 @media (max-width:1199.98px){
   .header-inner{
-    grid-template-columns:1fr auto;
-    grid-template-areas:"logo quick" "search search";
-    column-gap:.75rem; row-gap:.5rem;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    grid-template-areas:"logo search quick";
+    align-items:center;gap:1rem;padding-block:.75rem
+}
   }
   .quick-actions{ justify-self:end; display:flex; gap:.45rem }
   .search input{ min-height:40px }
-}
+
 
 /* ========= “Ver mais” (lista compacta alternativa) — caso você use rows ========= */
 .row-compact .rc-head{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:.6rem }
@@ -612,4 +615,28 @@ main.admin{ width:min(100%,var(--container)); overflow-x:hidden }
 .row-compact .rc-more{ display:block; margin-top:.45rem; text-align:center } /* sempre embaixo */
 .btn-xs{ height:34px; padding:0 .85rem; border-radius:999px; border:1px solid var(--gold); background:#fff; color:#BC933A; font:600 .9rem/1 var(--ff-sans) }
 .btn-xs.danger{ border-color:#e04141; color:#e04141 }
+
+/* --- Colapso no mobile --- */
+@media (max-width:640px){
+  /* Produtos: quando colapsado, esconda todas as colunas menos a 1ª (Nome) */
+  #tblProducts tbody tr.collapsed td:not(:first-child){ display:none; }
+
+  /* Pedidos: quando colapsado, mostre só 1ª (#) e 2ª (Cliente) */
+  #tblOrders  tbody tr.collapsed td:not(:first-child):not(:nth-child(2)){ display:none; }
+
+  /* Botão "Ver mais" visível no mobile */
+  .toggle-row{ display:inline-flex; margin-top:6px; }
+}
+
+/* Desktop: o botão não aparece */
+@media (min-width:641px){
+  .toggle-row{ display:none; }
+}
+
+/* Centraliza e limita a largura do conteúdo */
+main.admin .container{
+  max-width: 1180px;   /* ajuste se quiser mais/menos largo */
+  margin: 0 auto;      /* centraliza */
+  padding-inline: 12px;/* respiro nas laterais */
+}
 

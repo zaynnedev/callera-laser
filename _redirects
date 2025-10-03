@@ -1,6 +1,5 @@
-# (A) Força HTTPS e o domínio principal sem www
-http://www.calleralaser.com.br/*  https://calleralaser.com.br/:splat 301!
-http://calleralaser.com.br/*       https://calleralaser.com.br/:splat 301!
+http://calleralaser.com.br/*        https://calleralaser.com.br/:splat        301!
+http://www.calleralaser.com.br/*    https://www.calleralaser.com.br/:splat    301!
 
 # (B) Páginas "bonitas" sem .html (sem redirecionar — apenas reescreve 200)
 # Netlify já serve pretty URLs automaticamente, mas deixando explícito:

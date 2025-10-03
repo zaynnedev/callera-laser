@@ -25,7 +25,7 @@
       .forEach((cat) => {
         const li = document.createElement("li");
         li.setAttribute("data-dyncat", "");
-        li.innerHTML = `<a href="categoria.html?slug=${encodeURIComponent(cat.slug)}">${cat.name}</a>`;
+        li.innerHTML = `<a href="categoria?slug=${encodeURIComponent(cat.slug)}">${cat.name}</a>`;
         after.after(li);
         after = li;
       });

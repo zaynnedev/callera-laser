@@ -95,7 +95,7 @@
             const img = p.image_url || "assets/images/placeholder.png";
 
             return `
-              <a class="sr-item" href="product.html?id=${encodeURIComponent(p.id)}">
+              <a class="sr-item" href="product?id=${encodeURIComponent(p.id)}">
                 <img src="${img}" alt="" width="48" height="48" loading="lazy">
                 <div class="sr-txt">
                   <strong class="sr-name">${p.name}</strong>

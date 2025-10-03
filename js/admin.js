@@ -6,6 +6,8 @@
   const $  = (sel, el=document) => el.querySelector(sel);
   const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
   const toastBox = $('#toast');
+  const isMobile = () => window.matchMedia('(max-width: 640px)').matches;
+
 
   function moneyFormat(n){
     const v = Number(String(n).replace(/[^\d,.-]/g,'').replace(/\./g,'').replace(',', '.')) || 0;
@@ -149,33 +151,48 @@ async function ensureAuthOrShowGate(){
   }
 
   function renderProductsTable(list){
-    const body = $('#tblProducts tbody');
-    body.innerHTML='';
-    const rowset = (showAll? list : list.slice(0, showLimit));
-    rowset.forEach(p=>{
-      const price   = (p.price==null? null : Number(p.price));
-      const promo   = (p.on_sale && p.promo_price!=null) ? Number(p.promo_price||0) : null;
-      const instOk  = !!p.installments_enabled;
-      const instVal = (p.installment_value ?? null);
-      const tr=document.createElement('tr');
-      tr.innerHTML = `
-        <td data-label="Nome">${p.name||'—'}</td>
-        <td data-label="Preço">${price!=null? 'R$ '+moneyFormat(price) : '—'}</td>
-        <td data-label="Promoção">${promo!=null? 'R$ '+moneyFormat(promo) : '—'}</td>
-        <td data-label="Parcelas?">${instOk? 'sim' : '—'}</td>
-        <td data-label="Valor parcela">${(instOk && instVal!=null) ? 'R$ '+moneyFormat(instVal) : '—'}</td>
-        <td data-label="Estoque">${p.stock!=null? p.stock : '—'}</td>
-        <td data-label="Categorias">${p._catNames.length? p._catNames.map(n=>`<span class="chip">${n}</span>`).join(' ') : '—'}</td>
-        <td data-label="Destaque">${p.featured? 'sim' : '—'}</td>
-        <td class="actions-col right">
-          <button class="btn-sm" data-edit="${p.id}">Editar</button>
-          <button class="btn-sm danger" data-del="${p.id}">Excluir</button>
-        </td>`;
-      body.appendChild(tr);
-    });
+  const body = $('#tblProducts tbody');
+  body.innerHTML='';
+  const rowset = (showAll? list : list.slice(0, showLimit));
+  const mobile = isMobile();
 
-    $('#btnToggleMore').textContent = showAll? 'Ocultar' : 'Ver mais';
-  }
+  rowset.forEach(p=>{
+    const price   = (p.price==null? null : Number(p.price));
+    const promo   = (p.on_sale && p.promo_price!=null) ? Number(p.promo_price||0) : null;
+    const instOk  = !!p.installments_enabled;
+    const instVal = (p.installment_value ?? null);
+
+    const tr=document.createElement('tr');
+    if (mobile) tr.classList.add('collapsed');  // só colapsa no mobile
+
+    const toggleBtn = mobile ? `<button class="btn-sm ghost toggle-row" data-toggle="row" type="button">Ver mais</button>` : '';
+
+    tr.innerHTML = `
+      <td data-label="Nome">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <strong>${p.name||'—'}</strong>
+          ${toggleBtn}
+        </div>
+      </td>
+      <td data-label="Preço">${price!=null? 'R$ '+moneyFormat(price) : '—'}</td>
+      <td data-label="Promoção">${promo!=null? 'R$ '+moneyFormat(promo) : '—'}</td>
+      <td data-label="Parcelas?">${instOk? 'sim' : '—'}</td>
+      <td data-label="Valor parcela">${(instOk && instVal!=null) ? 'R$ '+moneyFormat(instVal) : '—'}</td>
+      <td data-label="Estoque">${p.stock!=null? p.stock : '—'}</td>
+      <td data-label="Categorias">${p._catNames.length? p._catNames.map(n=>`<span class="chip">${n}</span>`).join(' ') : '—'}</td>
+      <td data-label="Destaque">${p.featured? 'sim' : '—'}</td>
+      <td class="actions-col right">
+        <button class="btn-sm" data-edit="${p.id}">Editar</button>
+        <button class="btn-sm danger" data-del="${p.id}">Excluir</button>
+      </td>
+    `;
+    body.appendChild(tr);
+  });
+
+  $('#btnToggleMore').textContent = showAll? 'Ocultar' : 'Ver mais';
+}
+
+
 
   async function loadAndRenderProducts(){
     productsCache = await fetchProducts();
@@ -399,26 +416,41 @@ async function loadOrders(){
 
 
   function renderOrders(){
-    const body = $('#tblOrders tbody'); body.innerHTML='';
-    const rows = showOrdersAll? ordersCache : ordersCache.slice(0, ORDERS_LIMIT);
-    rows.forEach((o)=>{
-      const when = new Date(o.created_at);
-      const itens = (o.items||[]).map(i=>`${i.qty||1}× ${i.name}`).join(', ');
-      const tr=document.createElement('tr');
-      tr.innerHTML = `
-        <td data-label="#">${o.id.slice(0,6)}</td>
-        <td data-label="Cliente">${o.customer||'—'}</td>
-        <td data-label="Itens">${itens||'—'}</td>
-        <td data-label="Quando">${when.toLocaleDateString('pt-BR')} ${when.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</td>
-        <td data-label="Status">${o.status||'—'}</td>
-        <td class="actions-col right">
-          <button class="btn-sm" data-view-order="${o.id}">Ver</button>
-          <button class="btn-sm danger" data-del-order="${o.id}">Excluir</button>
-        </td>`;
-      body.appendChild(tr);
-    });
-    $('#btnToggleMoreOrders').textContent = showOrdersAll? 'Ocultar' : 'Ver mais';
-  }
+  const body = $('#tblOrders tbody'); body.innerHTML='';
+  const rows = showOrdersAll? ordersCache : ordersCache.slice(0, ORDERS_LIMIT);
+  const mobile = isMobile();
+
+  rows.forEach((o)=>{
+    const when  = new Date(o.created_at);
+    const itens = (o.items||[]).map(i=>`${i.qty||1}× ${i.name}`).join(', ');
+
+    const tr=document.createElement('tr');
+    if (mobile) tr.classList.add('collapsed');
+
+    const toggleBtn = mobile ? `<button class="btn-sm ghost toggle-row" data-toggle="row" type="button">Ver mais</button>` : '';
+
+    tr.innerHTML = `
+      <td data-label="#">${o.id.slice(0,6)}</td>
+      <td data-label="Cliente">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <strong>${o.customer||'—'}</strong>
+          ${toggleBtn}
+        </div>
+      </td>
+      <td data-label="Itens">${itens||'—'}</td>
+      <td data-label="Quando">${when.toLocaleDateString('pt-BR')} ${when.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</td>
+      <td data-label="Status">${o.status||'—'}</td>
+      <td class="actions-col right">
+        <button class="btn-sm" data-view-order="${o.id}">Ver</button>
+        <button class="btn-sm danger" data-del-order="${o.id}">Excluir</button>
+      </td>
+    `;
+    body.appendChild(tr);
+  });
+
+  $('#btnToggleMoreOrders').textContent = showOrdersAll? 'Ocultar' : 'Ver mais';
+}
+
 
   $('#btnToggleMoreOrders')?.addEventListener('click', ()=>{ showOrdersAll=!showOrdersAll; renderOrders(); });
 
@@ -542,5 +574,60 @@ function startOrdersPolling(){
     if (typeof startOrdersPolling === 'function') startOrdersPolling();
   }
 }
+
+// Expande/colapsa a linha no mobile
+// Expande/colapsa a linha no mobile
+document.addEventListener('click', (ev)=>{
+  const btn = ev.target.closest('[data-toggle="row"]');
+  if(!btn) return;
+  const tr = btn.closest('tr');
+  const collapsed = tr.classList.toggle('collapsed');
+  btn.textContent = collapsed ? 'Ver mais' : 'Ocultar';
+});
+
+// Se mudar o tamanho da tela, ajusta DOM para o estado correto
+window.addEventListener('resize', ()=>{
+  const mobile = isMobile();
+
+  // Produtos
+  $('#tblProducts tbody')?.querySelectorAll('tr').forEach(tr=>{
+    if (mobile) {
+      // se não tiver botão, adiciona (após nome)
+      if (!tr.querySelector('.toggle-row')) {
+        const nameCell = tr.querySelector('td:first-child > div');
+        if (nameCell){
+          const b = document.createElement('button');
+          b.type='button'; b.className='btn-sm ghost toggle-row'; b.dataset.toggle='row';
+          b.textContent='Ver mais';
+          nameCell.appendChild(b);
+        }
+      }
+      tr.classList.add('collapsed');
+    } else {
+      tr.classList.remove('collapsed');
+      tr.querySelectorAll('.toggle-row').forEach(b=> b.remove());
+    }
+  });
+
+  // Pedidos
+  $('#tblOrders tbody')?.querySelectorAll('tr').forEach(tr=>{
+    if (mobile) {
+      if (!tr.querySelector('.toggle-row')) {
+        const cliCell = tr.querySelector('td:nth-child(2) > div');
+        if (cliCell){
+          const b = document.createElement('button');
+          b.type='button'; b.className='btn-sm ghost toggle-row'; b.dataset.toggle='row';
+          b.textContent='Ver mais';
+          cliCell.appendChild(b);
+        }
+      }
+      tr.classList.add('collapsed');
+    } else {
+      tr.classList.remove('collapsed');
+      tr.querySelectorAll('.toggle-row').forEach(b=> b.remove());
+    }
+  });
+});
+
 
 })();

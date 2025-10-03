@@ -45,7 +45,7 @@
         </div>
 
         <div class="c-actions">
-          <a class="pill pill-outline" href="product.html?id=${encodeURIComponent(p.id)}">Saber mais</a>
+          <a class="pill pill-outline" href="product?id=${encodeURIComponent(p.id)}">Saber mais</a>
           <button class="pill pill-gold" data-add="${p.id}">
             <img class="pill-ico" src="assets/icons/sacola-1.svg" alt="" width="10" height="10">
             Adicionar
