@@ -1,1 +1,16 @@
-/admin        /admin.html   200
+# --- Rotas bonitas (sem .html) ---
+/index.html      /                    200
+/admin           /admin.html          200
+/categoria       /categoria.html      200
+/duvidas         /duvidas.html        200
+/produto         /produto.html        200
+/quemsomos       /quemsomos.html      200
+
+# opcional: se alguém digitar .html na URL, redirecionar para a versão “bonita”
+/:page.html      /:page               301!
+
+# www -> apex (mantém um domínio canônico)
+/*               https://calleralaser.com.br/:splat  301!  host=www.calleralaser.com.br
+
+# http -> https (garante HTTPS)
+/*               https://calleralaser.com.br/:splat  301!  force=1

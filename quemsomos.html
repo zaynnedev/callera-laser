@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quem somos • Callera Laser</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- CSS base + página -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/quemsomos.css" />
+
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-32.png?v=3">
+  <meta name="description" content="Conheça a Callera Laser: clínica de depilação a laser em Manaus-AM, atendimento acolhedor, protocolos seguros e foco em resultado.">
+</head>
+<body class="theme-callera">
+  <!-- Header via partial -->
+  <div id="app-header" data-partial="partials/header.html"></div>
+
+  <main id="content" class="qs-wrap" aria-labelledby="ttl-hero">
+    <!-- HERO enxuto, centralizado (sem botões) -->
+    <header class="qs-hero">
+      <p class="eyebrow">somos de manaus</p>
+      <h1 id="ttl-hero">Callera Laser</h1>
+      <p class="lead">Depilação a laser com acolhimento, segurança e resultado — do preparo ao pós-sessão.</p>
+    </header>
+
+    <!-- QUEM SOMOS -->
+    <section class="qs-section" aria-labelledby="ttl-sobre">
+      <h2 id="ttl-sobre" class="tt">Quem somos</h2>
+      <p>
+        Nascemos em <strong>Manaus-AM</strong> para tornar a depilação a laser uma experiência
+        <strong>segura, confortável e transparente</strong>. Nosso time orienta cada etapa,
+        ajusta parâmetros ao seu fototipo e acompanha sua evolução.
+      </p>
+    </section>
+
+    <!-- DIFERENCIAIS (curto, sem imagens) -->
+    <section class="qs-section" aria-labelledby="ttl-difs">
+      <h2 id="ttl-difs" class="tt">Nossos diferenciais</h2>
+      <ul class="qs-list" role="list">
+        <li><strong>Segurança:</strong> avaliação de pele e protocolos padronizados.</li>
+        <li><strong>Conforto:</strong> técnicas e condução cuidadosa durante a sessão.</li>
+        <li><strong>Tecnologia:</strong> parâmetros personalizados por área e resposta.</li>
+        <li><strong>Transparência:</strong> orientações claras de preparo e pós-sessão.</li>
+      </ul>
+    </section>
+
+    <!-- VALORES -->
+    <section class="qs-section" aria-labelledby="ttl-val">
+      <h2 id="ttl-val" class="tt">Valores</h2>
+      <ul class="qs-list" role="list">
+        <li><strong>Respeito</strong> ao seu tempo e particularidades.</li>
+        <li><strong>Ética</strong> e clareza nas recomendações.</li>
+        <li><strong>Excelência</strong> técnica e de atendimento.</li>
+        <li><strong>Segurança</strong> acima de qualquer pressa.</li>
+      </ul>
+    </section>
+
+    <!-- INFO PRÁTICA (sem links/botões externos) -->
+    <section class="qs-section info" aria-labelledby="ttl-info">
+      <h2 id="ttl-info" class="tt">Informações úteis</h2>
+      <div class="info-grid" role="list">
+        <div class="info-card" role="listitem">
+          <h3>Onde estamos</h3>
+          <p>Rua Guapimirim, 26 — Cidade Nova, Manaus-AM</p>
+        </div>
+        <div class="info-card" role="listitem">
+          <h3>Horário</h3>
+          <p>Segunda a sábado — consulte disponibilidade de agenda.</p>
+        </div>
+      </div>
+      <p class="note">Para atendimento e agendamento, utilize os canais disponíveis no site.</p>
+    </section>
+  </main>
+
+  <!-- Footer via partial -->
+  <div id="app-footer" data-partial="partials/footer.html"></div>
+
+  <!-- Scripts base (o header carrega o search.js internamente) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/menu-cats.js"></script>
+
+  <!-- Página -->
+  <script src="js/quemsomos.js"></script>
+</body>
+</html>

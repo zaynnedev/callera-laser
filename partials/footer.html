@@ -1,4 +1,98 @@
 <footer class="footer-pro" role="contentinfo">
+  <!-- ESTILOS DO FOOTER (auto-contidos no partial) -->
+  <style>
+    /* ===== Footer responsivo e compacto ===== */
+    .footer-pro{
+      --fp-bg: #F1EBE1;          /* fundo (mude aqui se quiser) */
+      --fp-ink: #2f2f2f;         /* texto */
+      --fp-muted: #6b7280;       /* texto secundário */
+      --fp-link: #1f2937;        /* links */
+      --fp-border: #e5e7eb;      /* linhas */
+      --fp-padY: clamp(16px, 3.2vw, 28px);
+      --fp-padX: clamp(12px, 3vw, 20px);
+      background: var(--fp-bg);
+      color: var(--fp-ink);
+      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: clamp(13px, 1.4vw, 15px);
+      line-height: 1.5;
+      border-top: 1px solid var(--fp-border);
+    }
+    .footer-pro .fp-wrap{
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: var(--fp-padY) var(--fp-padX);
+    }
+
+    /* Topo em grid fluido: vira 1 coluna no mobile */
+    .footer-pro .fp-top{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(10px, 2.5vw, 20px);
+    }
+    .footer-pro section h4{
+      margin: 0 0 .4rem;
+      font: 800 clamp(13px, 1.6vw, 16px)/1.1 "Montserrat", sans-serif;
+      letter-spacing: .01em;
+    }
+    .footer-pro .muted{ color: var(--fp-muted); }
+
+    .footer-pro ul{ list-style: none; margin: .2rem 0 0; padding: 0; }
+    .footer-pro li{ margin: .3rem 0; }
+    .footer-pro a{
+      color: var(--fp-link);
+      text-decoration: none;
+    }
+    .footer-pro a:hover{ text-decoration: underline; }
+
+    /* Bottom: linha superior e layout fluido */
+    .footer-pro .fp-bottom{
+      margin-top: clamp(14px, 3vw, 22px);
+      padding-top: clamp(10px, 2.5vw, 16px);
+      border-top: 1px solid var(--fp-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-pro .devby{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      font-size: clamp(12px, 1.3vw, 14px);
+      color: var(--fp-muted);
+    }
+    .footer-pro .devby img{
+      width: clamp(72px, 18vw, 100px);
+      height: auto;
+      display: block;
+      filter: none; /* deixe a logo nítida */
+    }
+
+    /* ===== Responsividade ===== */
+    @media (max-width: 900px){
+      .footer-pro .fp-top{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 520px){
+      .footer-pro{
+        --fp-padY: 14px; --fp-padX: 12px;
+      }
+      .footer-pro .fp-top{
+        grid-template-columns: 1fr;   /* 1 coluna no mobile */
+      }
+      .footer-pro section h4{ margin-bottom: .3rem; }
+      .footer-pro li{ margin: .25rem 0; }
+      .footer-pro .fp-bottom{
+        flex-direction: column;
+        align-items: flex-start;      /* ou center, se preferir centralizado */
+        gap: 6px;
+      }
+    }
+  </style>
+
   <div class="fp-wrap">
     <div class="fp-top">
       <section>
@@ -6,47 +100,61 @@
         <p class="muted" style="margin:.25rem 0 0">
           Tratamentos seguros e confortáveis em Manaus-AM.
         </p>
-        <div class="fp-pay" style="margin-top:.6rem">
-          <img src="assets/payments/mastercard.svg" alt="Mastercard" width="40" height="24">
-          <img src="assets/payments/visa.svg" alt="Visa" width="40" height="24">
-          <img src="assets/payments/elo.svg" alt="Elo" width="40" height="24">
-          <img src="assets/payments/amex.svg" alt="American Express" width="40" height="24">
-          <img src="assets/payments/hipercard.svg" alt="Hipercard" width="40" height="24">
-        </div>
       </section>
 
-      <section>
-        <h4>Institucional</h4>
+      <section aria-labelledby="ttl-inst">
+        <h4 id="ttl-inst">Institucional</h4>
         <ul>
-          <li><a href="#">Quem somos</a></li>
-          <li><a href="#">Onde estamos</a></li>
-          <li><a href="#">Agendamento</a></li>
+          <li><a href="quemsomos.html">Quem somos</a></li>
+          <li>
+            <a href="https://google.com/maps/search/?api=1&query=Callera%20Clinic%20Rua%20Guapimirim%2C%2026%20Cidade%20Nova%20Manaus%20AM" target="_blank" rel="noopener">
+              Onde estamos
+            </a>
+          </li>
+          <!-- 'Central de atendimento' removido desta seção conforme solicitado -->
         </ul>
       </section>
 
-      <section>
-        <h4>Categorias</h4>
-        <ul>
+      <section aria-labelledby="ttl-cats">
+        <h4 id="ttl-cats">Categorias</h4>
+        <ul id="footerCats">
           <li><a href="categoria.html?slug=feminino">Depilação Feminina</a></li>
           <li><a href="categoria.html?slug=masculino">Depilação Masculina</a></li>
-          <li><a href="categoria.html?slug=promocoes">Promoções</a></li>
+          <!-- Itens dinâmicos entram via JS -->
         </ul>
       </section>
 
-      <section>
-        <h4>Ajuda</h4>
+      <section aria-labelledby="ttl-ajuda">
+        <h4 id="ttl-ajuda">Ajuda</h4>
         <ul>
-          <li><a href="#">Dúvidas no procedimento</a></li>
-          <li><a href="#">Como me preparar</a></li>
-          <li><a href="#">Central de atendimento</a></li>
+          <li><a href="duvidas.html">Dúvidas no procedimento</a></li>
+          <li>
+            <a href="https://wa.me/5592993242367?text=Ol%C3%A1!%20Preciso%20de%20atendimento." target="_blank" rel="noopener">
+              Central de atendimento (WhatsApp)
+            </a>
+          </li>
         </ul>
       </section>
     </div>
 
     <div class="fp-bottom">
       <div>© <span id="fpYear"></span> Callera Laser — Todos os direitos reservados</div>
-      <div>Desenvolvido com ❤️</div>
+      <div class="devby">
+        Desenvolvido por
+        <a href="https://wa.me/5592994202200?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os.%20Poderia%20me%20ajudar%3F" target="_blank" rel="noopener" aria-label="Contato no WhatsApp do desenvolvedor">
+          <img src="assets/images/logodev.png" alt="Logo do desenvolvedor" width="88" height="28" loading="lazy">
+        </a>
+      </div>
     </div>
   </div>
-  <script>document.getElementById('fpYear').textContent = new Date().getFullYear();</script>
+
+  <!-- Scripts do próprio footer -->
+  <script>
+    // Atualiza o ano automaticamente
+    (function () {
+      var el = document.getElementById('fpYear');
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+  <script src="js/footer-cats.js"></script>
 </footer>

@@ -9,23 +9,35 @@
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-32.png?v=3">
 </head>
 <body>
+  <!-- Header via partial -->
   <div id="app-header" data-partial="partials/header.html"></div>
-  <div id="app-menu"   data-partial="partials/menu.html"></div>
+
+  <!-- (Opcional) Se o menu já está embutido no header, pode remover este bloco -->
+  <div id="app-menu" data-partial="partials/menu.html"></div>
 
   <main class="container" style="padding-block:20px">
     <h1 id="catTitle" aria-live="polite"></h1>
     <div id="catalogGrid" class="cards"></div>
   </main>
 
+  <!-- Footer via partial (NOVO) -->
+  <div id="app-footer" data-partial="partials/footer.html"></div>
+
+  <!-- Lib + config -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase.js"></script>
+
+  <!-- Carregamento de parciais e categorias dinâmicas -->
   <script src="js/layout.js"></script>
   <script src="js/menu-cats.js"></script>
-  <script src="js/catalog.js"></script>
-<script src="js/search.js"></script>
-<script src="js/cart-badge.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/category.js"></script>
 
+  <!-- Funcionalidades comuns -->
+  <script src="js/search.js"></script>
+  <script src="js/cart-badge.js"></script>
+  <script src="js/cart.js"></script>
+
+  <!-- Página de catálogo/categoria -->
+  <script src="js/catalog.js"></script>
+  <script src="js/category.js"></script>
 </body>
 </html>

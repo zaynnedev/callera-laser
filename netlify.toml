@@ -1,0 +1,12 @@
+[[redirects]]
+  from = "/categories.html"
+  to = "/categorias/:slug"
+  status = 301
+  force = true
+  query = { slug = ":slug" }
+
+# Mantém a reescrita bonita -> html (fallback/SSR estático)
+[[redirects]]
+  from = "/categorias/:slug"
+  to = "/categories.html?slug=:slug"
+  status = 200

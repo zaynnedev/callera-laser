@@ -1,0 +1,147 @@
+/* ======= Dúvidas – Callera Laser (refeito) ======= */
+/* A rolagem agora é do container .scroll-frame, com barra SEMPRE visível */
+.scroll-frame{
+  height: 100svh;                 /* usa a viewport segura em mobile */
+  overflow-y: scroll;             /* força barra SEMPRE */
+  scrollbar-gutter: stable;       /* reserva o espaço (browsers modernos) */
+  overscroll-behavior-y: contain; /* evita bounce interferir no layout */
+}
+
+/* Paleta (areia + dourado) */
+:root{
+  --cl-bg: #ffffff;
+  --cl-card: #ffffff;
+  --cl-ink: #3a3a3a;
+  --cl-muted: #737373;
+
+  --cl-gold: #c89a2c;
+  --cl-gold-600: #9a7421;
+  --cl-gold-100: #f7f1e3;
+  --cl-stroke: #eadcc1;
+
+  --radius-xl: 18px;
+  --shadow-soft: 0 10px 30px rgba(0,0,0,.06);
+}
+
+/* Página */
+.theme-callera{ background: var(--cl-bg); color: var(--cl-ink); }
+.dv-container{
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 2.5vw, 2rem) 1rem 4rem;
+}
+
+/* Hero (sem “frequentes” e sem voltar) */
+.dv-hero{ margin: .25rem 0 1.5rem; }
+.dv-hero .eyebrow{
+  margin: 0 0 .25rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--cl-gold-600); font: 700 .9rem/1 "Poppins", sans-serif;
+}
+.dv-hero h1{
+  margin: 0 0 .5rem;
+  font-family: "Montserrat", system-ui, sans-serif; font-weight: 900; line-height: .95;
+  font-size: clamp(2rem, 4.8vw, 3.1rem); color: var(--cl-gold-600);
+}
+.dv-hero h1 span{ color: var(--cl-gold); margin-right: .5rem; display: inline-block; }
+.dv-hero .sub{ max-width: 62ch; color: var(--cl-muted); font-size: clamp(1rem, 1.3vw, 1.05rem); }
+
+/* FAQ (grid de grupos) */
+.dv-faq{ display: grid; gap: clamp(1rem, 2vw, 1.25rem); grid-template-columns: 1fr; }
+.faq-group{
+  background: linear-gradient(180deg, var(--cl-gold-100), #fff);
+  border: 1px solid var(--cl-stroke);
+  border-radius: calc(var(--radius-xl) + 2px);
+  padding: clamp(1rem, 2.5vw, 1.25rem);
+  box-shadow: var(--shadow-soft);
+}
+.group-title{
+  margin: .25rem 0 1rem;
+  font: 800 1.1rem/1.2 "Montserrat", sans-serif;
+  color: var(--cl-gold-600);
+  letter-spacing: .02em;
+}
+
+/* === Item do FAQ ===
+   Só o item aberto cresce; os demais permanecem compactos.
+   Sem JS de altura; transição 100% em CSS. */
+.faq{
+  background: var(--cl-card);
+  border: 1px solid var(--cl-stroke);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-soft);
+  margin: .75rem 0;
+  overflow: clip;
+}
+
+/* Cabeçalho */
+.faq > summary{
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .75rem;
+  padding: 1rem 1.1rem; color: var(--cl-ink);
+  font: 600 1rem/1.3 "Poppins", sans-serif;
+}
+.faq > summary::-webkit-details-marker{ display:none; }
+
+.faq > summary .chev{ width: 24px; height: 24px; position: relative; }
+.faq > summary .chev::before{
+  content:""; position:absolute; inset:0; margin:auto; width:10px; height:10px;
+  border-right: 2px solid var(--cl-gold-600); border-bottom: 2px solid var(--cl-gold-600);
+  transform: rotate(-45deg); transition: transform .25s ease;
+}
+.faq[open] > summary .chev::before{ transform: rotate(45deg); }
+
+/* Conteúdo com transição (CSS grid trick) */
+.faq .content{
+  display: grid;
+  grid-template-rows: 0fr;       /* fechado: 0 de altura */
+  transition: grid-template-rows .28s ease;
+  border-top: 1px solid color-mix(in srgb, var(--cl-stroke) 85%, #000 0%);
+}
+.faq[open] .content{ grid-template-rows: 1fr; }  /* aberto: expande */
+
+.faq .answer{
+  min-height: 0;                 /* necessário p/ funcionar com 0fr */
+  overflow: hidden;              /* recorta no fechado */
+  padding: 0 1.1rem 1rem;
+  color: var(--cl-muted);
+  font: 400 .98rem/1.6 "Poppins", sans-serif;
+  overflow-wrap: anywhere;
+}
+
+/* CTA com degradê de ouro */
+.dv-cta{
+  margin: 2rem 0 0;
+  border-radius: calc(var(--radius-xl) + 6px);
+  border: 1px dashed color-mix(in srgb, var(--cl-gold) 45%, transparent);
+  padding: clamp(1rem, 2.6vw, 1.4rem);
+  text-align: center;
+  background:
+    radial-gradient(1200px 300px at 10% 0%, rgba(200,154,44,.08), transparent 70%),
+    radial-gradient(1200px 300px at 90% 100%, rgba(154,116,33,.08), transparent 70%),
+    #fff;
+}
+.dv-cta h2{ margin: 0 0 .35rem; font: 900 1.4rem/1.15 "Montserrat", sans-serif; color: var(--cl-gold-600); }
+.dv-cta p{ margin: 0 0 .9rem; color: var(--cl-ink); }
+.btn-primary{
+  --g1:#f5d27a; --g2:#d4a735; --g3:#a97b1f;
+  display: inline-block; padding: .9rem 1.2rem; border-radius: 999px; text-decoration: none;
+  background-image: linear-gradient(135deg, var(--g1), var(--g2) 45%, var(--g3));
+  color: #2a2312; font: 800 .95rem/1 "Poppins", sans-serif;
+  box-shadow: 0 10px 22px rgba(169,123,31,.25), inset 0 1px 0 rgba(255,255,255,.5);
+  border: 1px solid rgba(169,123,31,.35);
+}
+.btn-primary:hover{ filter: brightness(1.05) saturate(1.05); }
+.btn-primary:active{ transform: translateY(1px); }
+
+/* Acessibilidade utilitária */
+.sr-only{
+  position:absolute!important; width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;
+}
+
+/* Breakpoints */
+@media (min-width:768px){
+  .dv-hero{ margin-bottom: 2rem; }
+}
+@media (min-width:1024px){
+  .dv-container{ padding-left: 0; padding-right: 0; }
+}
